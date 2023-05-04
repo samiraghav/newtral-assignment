@@ -27,8 +27,8 @@ function App() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Load post detail
-  const loadPostDetail = (id) => {
-    axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+  const loadPostDetail = (postId) => {
+    axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
       .then(response => {
         setSelectedPost(response.data);
       })
@@ -42,8 +42,10 @@ function App() {
       {selectedPost ? (
         <div className="post-detail">
           <h1 className="text-3xl font-bold mb-4">Post Details</h1>
-          <h2>{selectedPost.title}</h2>
-          <p>{selectedPost.body}</p>
+          <h2 className="text-lg font-bold mb-2"><strong>User ID:</strong> {selectedPost.userId}</h2>
+          <h2 className="text-lg font-bold mb-2"><strong>ID:</strong> {selectedPost.id}</h2>
+          <h2 className="text-lg font-bold mb-2"><strong>Title:</strong> {selectedPost.title}</h2>
+          <h2 className="text-lg font-bold mb-2"><strong>Body:</strong> {selectedPost.body}</h2>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg px-4 py-2 focus:outline-none"
             onClick={() => setSelectedPost(null)}
@@ -57,8 +59,10 @@ function App() {
           <div className="posts">
             {currentPosts.map(post => (
               <div className="post bg-white rounded-lg shadow-md px-6 py-4 mb-4" key={post.id}>
-                <p><strong>User ID:</strong> {post.userId}</p>
-                <p><strong>ID:</strong> {post.id}</p>
+                {/* <h2><strong>User ID:</strong> {post.userId}</h2> */}
+                <h2><strong>ID:</strong> {post.id}</h2>
+                <h2 className="text-lg font-bold mb-2"><strong>Title:</strong>{post.title}</h2>
+                <h2 className="text-lg font-bold mb-2"><strong>Body:</strong>{post.body}</h2>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-lg px-4 py-2 focus:outline-none" onClick={() => loadPostDetail(post.id)}>View Post</button>
               </div>
             ))}
